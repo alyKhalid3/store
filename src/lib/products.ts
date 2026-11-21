@@ -7,7 +7,8 @@
 //      - "License Keys"             → buyer gets a key a paid MCP server can validate
 // 3. Copy the Polar product ID into `polarProductId` below.
 //
-// Products with an empty `polarProductId` show as "Coming soon".
+// The Buy button uses the provider set in `site.checkout`. A product without a link
+// for that provider shows "Coming soon".
 // Every claim here must be true of the shipped product. No invented numbers, reviews or urgency.
 
 export type DemoLine =
@@ -32,6 +33,8 @@ export type Product = {
   video?: { src: string; poster: string; caption: string };
   demo?: DemoLine[];
   polarProductId: string;
+  /** Gumroad product link (https://<you>.gumroad.com/l/<slug>). Used when site.checkout is "gumroad". */
+  gumroadUrl?: string;
 };
 
 export const products: Product[] = [
@@ -88,6 +91,7 @@ export const products: Product[] = [
     },
     // Polar SANDBOX product. Replace with the production product ID at go-live.
     polarProductId: "8f980c27-978a-4dab-8e7a-7b4ba3402e26",
+    gumroadUrl: "https://alykhalid.gumroad.com/l/smooth-intro-reel",
   },
 ];
 

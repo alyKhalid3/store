@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { products } from "@/lib/products";
-import { site } from "@/lib/site";
+import { payments, site } from "@/lib/site";
 import { ReelVideo } from "@/components/ReelVideo";
 import { BuyButton, TrustLine } from "@/components/BuyButton";
 
@@ -26,11 +26,11 @@ const faqs = [
   },
   {
     q: "How do I get it?",
-    a: "Right after payment you get a download link for the .skill file by email. It's also in your Polar customer portal. Unzip it into your Claude skills folder and ask Claude for an intro reel.",
+    a: `Right after payment you get a download link for the .skill file by email. It's also in ${payments.library}. Unzip it into your Claude skills folder and ask Claude for an intro reel.`,
   },
   {
     q: "Do updates cost extra?",
-    a: "No. When the skill is updated, the new file appears in your customer portal at no cost.",
+    a: `No. When the skill is updated, the new file appears in ${payments.library} at no cost.`,
   },
   {
     q: "What if I get stuck?",

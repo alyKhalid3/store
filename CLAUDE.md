@@ -4,7 +4,7 @@
 Ali (freelance backend and AI-automation engineer, based in Egypt) sells **Claude skills, plugins and MCP servers** for USD through his own website. Products are delivered as a private Claude Code plugin marketplace (GitHub repo), plus license keys for paid MCP servers.
 
 ## Decisions already made
-- **Payments: Polar.sh** as merchant of record. It has the lowest fees of the options that pay out to Egypt: 4% + 40¢ per sale, plus Stripe payout fees of about $2/month + 0.25% + $0.25 + up to 1% FX. It pays out through Stripe Connect Express to Ali's **Egyptian EGP bank account** (he has his IBAN and SWIFT). Stripe rejects Payoneer and Wise. Fallback if Stripe onboarding fails: Gumroad (pays Egyptian banks in EGP, but costs about 10% + 50¢ plus card fees).
+- **Payments: Polar.sh** as merchant of record. It has the lowest fees of the options that pay out to Egypt. Per Polar's fee docs checked 2026-11-21, the Starter plan is 5% + 50¢ per sale, +1.5% for non-US cards (earlier notes said 4% + 40¢), plus Stripe payout fees of about $2/month + 0.25% + $0.25 + up to 1% FX. It pays out through Stripe Connect Express to Ali's **Egyptian EGP bank account** (he has his IBAN and SWIFT). Stripe rejects Payoneer and Wise. Fallback if Stripe onboarding fails: Gumroad (pays Egyptian banks in EGP, but costs about 10% + 50¢ plus card fees).
 - Ruled out: Lemon Squeezy (shutting down Mar 2027, no new sign-ups), Dodo (Egypt only grandfathered), PayPal (Egypt only receives to a Visa card; withdrawal fee 125 EGP).
 - **Delivery:** Polar Benefits. Single skills use "File Downloads" (the `.skill` zip). Plugins later use "GitHub Repository Access" (invite to the private marketplace repo); paid MCP servers use "License Keys" (validated by `/api/license/validate`).
 - **Catalog (2026-11-21):** one real product, **Smooth Intro Reel** skill, $4 one-time, delivered as `smooth-intro-reel.skill` (source: `D:\Portoflio\Motion graphics\`). Placeholder plugins and the bundle were removed until real ones exist. Demo video is Ali's own reel in `public/demo/`.
@@ -18,6 +18,8 @@ Ali (freelance backend and AI-automation engineer, based in Egypt) sells **Claud
 - The site was redesigned to be more premium and conversion-focused. Look: "blueprint & workshop", with paper `#f3f5f7`, ink navy `#0f2a4a` and amber `#f2a93b`. The hero shows a terminal replaying a skill session.
   - Conversion features: featured product, a maker section (the bundle and the 14-day guarantee were removed on 2026-11-21), objection FAQ, sticky buy panel on desktop and buy bar on mobile.
   - **No fake reviews or fake urgency.** That's a hard rule.
+
+- **Checkout switch (2026-11-21):** `site.checkout` in `site.ts` is `"gumroad"` as a temporary bridge while the Polar production review runs (up to 14 days). Each product has `gumroadUrl` (TODO: paste the link) and `polarProductId`. To move to Polar: set `checkout: "polar"`, then put the production product ID in `polarProductId`. Footer, trust line, FAQ and terms wording follow the switch.
 
 ## Key files
 | File | Purpose |

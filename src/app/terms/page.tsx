@@ -1,4 +1,4 @@
-import { site } from "@/lib/site";
+import { payments, site } from "@/lib/site";
 
 export const metadata = { title: "Terms" };
 
@@ -10,8 +10,7 @@ export default function Terms() {
 
       <h2 className="mt-8 font-display text-xl font-semibold">1. Who we are</h2>
       <p className="mt-2 text-ink-soft">
-        {site.name} is operated by {site.author}. Orders are processed by Polar Software Inc., which acts as
-        the merchant of record and handles payment, invoicing and sales tax.
+        {site.name} is operated by {site.author}. Orders are processed by {payments.company}.
       </p>
 
       <h2 className="mt-8 font-display text-xl font-semibold">2. License</h2>

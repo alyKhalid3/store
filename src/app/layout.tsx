@@ -4,7 +4,7 @@ import "@fontsource-variable/bricolage-grotesque/opsz.css";
 import "@fontsource-variable/hanken-grotesk";
 import "@fontsource-variable/jetbrains-mono";
 import "./globals.css";
-import { site } from "@/lib/site";
+import { payments, site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: { default: `${site.name}: ${site.tagline}`, template: `%s | ${site.name}` },
@@ -55,7 +55,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <Wordmark />
               </Link>
               <p className="mt-3 max-w-sm text-sm text-ink-soft">
-                Payments are handled by Polar, our merchant of record. Independent store, not affiliated with Anthropic.
+                {payments.footer} Independent store, not affiliated with Anthropic.
               </p>
             </div>
             <div className="text-sm">

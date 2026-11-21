@@ -13,7 +13,7 @@ export default function Refund() {
       <p className="mt-4 text-ink-soft">
         If your download is broken, missing files, or the product doesn&apos;t match its description, email{" "}
         {site.contactEmail} with your order reference. I&apos;ll fix it or send you a new file, and if I can&apos;t, I&apos;ll
-        refund you through Polar to your original payment method. A refunded order loses access to its download.
+        refund you to your original payment method. A refunded order loses access to its download.
       </p>
     </article>
   );
