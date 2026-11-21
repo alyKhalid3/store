@@ -1,4 +1,4 @@
-# AgentKit Store
+# aly.build store
 
 A storefront for selling Claude skills, plugins and MCP servers. Built with Next.js, TypeScript and Tailwind, with **Polar** as the merchant of record for checkout, tax and payouts to your Egyptian bank account.
 

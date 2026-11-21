@@ -18,12 +18,13 @@ export default function Terms() {
       <p className="mt-2 text-ink-soft">
         Each purchase grants one person (or one team, where stated) a non-exclusive, non-transferable license to
         use the product for personal and commercial work. You may not resell, redistribute or publicly share the
-        product files, repository access or license keys.
+        product files, download links, repository access or license keys. Videos and other work you
+        create with a product belong to you, including work you make for clients.
       </p>
 
       <h2 className="mt-8 font-display text-xl font-semibold">3. Delivery and updates</h2>
       <p className="mt-2 text-ink-soft">
-        Products are delivered digitally via private repository access or license key. Updates to purchased
+        Products are delivered digitally as a file download, private repository access or a license key. Updates to purchased
         products are included at no extra cost for as long as the product is maintained.
       </p>
 

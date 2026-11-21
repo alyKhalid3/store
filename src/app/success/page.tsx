@@ -15,8 +15,9 @@ export default function Success({ searchParams }: { searchParams: Promise<{ chec
       <div className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-white border border-line text-2xl text-amber-deep">✓</div>
       <h1 className="mt-6 font-display text-4xl font-semibold tracking-tight">Payment received — thank you!</h1>
       <p className="mt-4 leading-relaxed text-ink-soft">
-        Check your email in the next few minutes. You&apos;ll get either an invite to the private GitHub
-        repository or your license key. You can also find everything in your Polar customer portal.
+        Check your email in the next few minutes for your download link. You can also download it any time
+        from your Polar customer portal. To install, unzip the file into your Claude skills folder
+        (<code className="font-mono text-sm">~/.claude/skills/</code>) and ask Claude for an intro reel.
       </p>
       <Suspense fallback={null}>
         <OrderRef searchParams={searchParams} />

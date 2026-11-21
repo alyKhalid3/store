@@ -11,13 +11,16 @@ export const metadata: Metadata = {
   description: site.description,
 };
 
-function Mark() {
-  // A skill file folded like a tool tag
+function Wordmark() {
+  // "aly.build" with the dot in amber. The visible text stays the real name for screen readers.
+  const [first, rest] = site.name.split(".");
   return (
-    <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden>
-      <rect x="1" y="1" width="24" height="24" rx="6" fill="var(--ink)" />
-      <path d="M8 9h10M8 13h7M8 17h4" stroke="var(--amber)" strokeWidth="2" strokeLinecap="round" />
-    </svg>
+    <span className="font-display text-[22px] font-bold tracking-[-0.03em]">
+      {first}
+      <span className="sr-only">.</span>
+      <span aria-hidden className="mx-[2px] inline-block h-[7px] w-[7px] rounded-full bg-amber" />
+      {rest}
+    </span>
   );
 }
 
@@ -27,18 +30,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="flex min-h-full flex-col">
         <header className="sticky top-0 z-40 border-b border-line/70 bg-paper/85 backdrop-blur">
           <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3.5">
-            <Link href="/" className="flex items-center gap-2.5 whitespace-nowrap font-display text-lg font-semibold tracking-tight">
-              <Mark />
-              {site.name}
+            <Link href="/" className="whitespace-nowrap" aria-label={`${site.name} home`}>
+              <Wordmark />
             </Link>
             <div className="flex items-center gap-6 whitespace-nowrap text-[15px] text-ink-soft">
               <Link href="/#products" className="hover:text-ink">Products</Link>
               <Link href="/#faq" className="hidden hover:text-ink sm:inline">Questions</Link>
               <Link
-                href="/#bundle"
+                href="/products/smooth-intro-reel"
                 className="rounded-lg border border-ink/15 bg-white px-3.5 py-1.5 font-medium text-ink hover:border-ink/40"
               >
-                Get the kit
+                Get the skill
               </Link>
             </div>
           </nav>
@@ -49,9 +51,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <footer className="border-t border-line bg-white">
           <div className="mx-auto grid max-w-6xl gap-8 px-6 py-12 sm:grid-cols-[1.5fr_1fr_1fr]">
             <div>
-              <Link href="/" className="flex items-center gap-2.5 font-display text-lg font-semibold">
-                <Mark />
-                {site.name}
+              <Link href="/" aria-label={`${site.name} home`}>
+                <Wordmark />
               </Link>
               <p className="mt-3 max-w-sm text-sm text-ink-soft">
                 Payments are handled by Polar, our merchant of record. Independent store, not affiliated with Anthropic.
@@ -61,7 +62,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <p className="font-semibold">Store</p>
               <ul className="mt-3 space-y-2 text-ink-soft">
                 <li><Link href="/#products" className="hover:text-ink">Products</Link></li>
-                <li><Link href="/#bundle" className="hover:text-ink">Complete kit</Link></li>
                 <li><Link href="/#faq" className="hover:text-ink">Questions</Link></li>
               </ul>
             </div>

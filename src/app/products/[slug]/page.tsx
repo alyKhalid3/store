@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { bundle, getProduct, products } from "@/lib/products";
+import { getProduct, products } from "@/lib/products";
 import { BuyButton, TrustLine } from "@/components/BuyButton";
 import { TerminalDemo } from "@/components/TerminalDemo";
+import { ReelVideo } from "@/components/ReelVideo";
 
 export function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
@@ -18,13 +19,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const product = getProduct(slug);
-  if (!product || product.type === "Bundle") notFound();
+  if (!product) notFound();
 
   return (
     <>
       <div className="mx-auto max-w-6xl px-6 pb-28 pt-10 lg:pb-20">
-        <Link href="/#products" className="text-sm text-ink-soft hover:text-ink">
-          ‹ All products
+        <Link href="/" className="text-sm text-ink-soft hover:text-ink">
+          ‹ Home
         </Link>
 
         <div className="mt-6 grid gap-12 lg:grid-cols-[1fr_360px]">
@@ -36,7 +37,14 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             <p className="mt-5 max-w-[60ch] text-xl leading-relaxed text-ink-soft">{product.short}</p>
 
             <div className="mt-10">
-              <TerminalDemo lines={product.demo} title="Claude Code" />
+              {product.video ? (
+                <figure className="rounded-2xl border border-line bg-white px-6 py-10">
+                  <ReelVideo src={product.video.src} poster={product.video.poster} label={`${product.name} demo reel`} />
+                  <figcaption className="mt-4 text-center text-sm text-ink-soft">{product.video.caption}</figcaption>
+                </figure>
+              ) : product.demo ? (
+                <TerminalDemo lines={product.demo} title="Claude Code" />
+              ) : null}
             </div>
 
             <p className="mt-10 max-w-[65ch] text-lg leading-relaxed">{product.description}</p>
@@ -63,26 +71,21 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               </div>
             </div>
 
+            <h2 className="mt-12 font-display text-2xl font-semibold">You&apos;ll need</h2>
+            <ul className="mt-3 space-y-2 text-ink-soft">
+              {product.requirements.map((r) => <li key={r}>• {r}</li>)}
+            </ul>
+
             <h2 className="mt-12 font-display text-2xl font-semibold">Installing after you buy</h2>
             <pre className="mt-4 overflow-x-auto rounded-xl bg-term p-5 font-mono text-[13.5px] leading-7 text-[#dbe6f3]">
               {product.install.join("\n")}
             </pre>
-
-            <div className="mt-12 rounded-2xl bg-ink p-7 text-white">
-              <p className="font-display text-xl font-semibold">Want all {products.length} products?</p>
-              <p className="mt-1 text-[#b9c8da]">
-                The complete kit is ${bundle.priceUsd} instead of ${bundle.compareAtUsd}.
-              </p>
-              <Link href="/#bundle" className="mt-4 inline-block font-medium text-amber underline-offset-4 hover:underline">
-                See the complete kit
-              </Link>
-            </div>
           </div>
 
           {/* Purchase panel follows you on desktop */}
           <aside className="hidden h-fit rounded-2xl border border-line bg-white p-7 lg:sticky lg:top-24 lg:block">
             <p className="font-display text-5xl font-semibold">${product.priceUsd}</p>
-            <p className="mt-1 text-ink-soft">One-time. Saves {product.saves}.</p>
+            <p className="mt-1 text-ink-soft">One-time payment.</p>
             <div className="mt-6">
               <BuyButton product={product} size="lg" full />
             </div>
@@ -91,10 +94,6 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             <ul className="mt-2 space-y-1.5 text-[15px] text-ink-soft">
               {product.includes.map((i) => <li key={i}>{i}</li>)}
             </ul>
-            <p className="mt-7 border-t border-line pt-5 text-sm text-ink-soft">
-              14-day guarantee: it works for you, or you get your money back.{" "}
-              <Link href="/refund" className="underline underline-offset-2">Details</Link>
-            </p>
           </aside>
         </div>
       </div>
@@ -104,7 +103,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         <div className="flex items-center justify-between gap-4">
           <div>
             <p className="font-display text-2xl font-semibold leading-none">${product.priceUsd}</p>
-            <p className="text-xs text-ink-soft">One-time, 14-day refund</p>
+            <p className="text-xs text-ink-soft">One-time payment</p>
           </div>
           <BuyButton product={product} />
         </div>
