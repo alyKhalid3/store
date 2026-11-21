@@ -1,29 +1,77 @@
 @import "tailwindcss";
 
+/* Blueprint & workshop: cool paper, blueprint navy, tool-amber accent */
 :root {
-  --background: #0b0b0f;
-  --surface: #13131a;
-  --border: #23232e;
-  --foreground: #ececf1;
-  --muted: #9a9aab;
-  --accent: #d97757;
-  --accent-soft: rgba(217, 119, 87, 0.12);
+  --paper: #f3f5f7;
+  --white: #ffffff;
+  --ink: #0f2a4a;
+  --ink-soft: #4a5d73;
+  --line: #d6dde5;
+  --amber: #f2a93b;
+  --amber-deep: #b86e0a;
+  --term: #0b1f38;
+  --term-line: #1d3a5f;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-surface: var(--surface);
-  --color-border: var(--border);
-  --color-foreground: var(--foreground);
-  --color-muted: var(--muted);
-  --color-accent: var(--accent);
-  --color-accent-soft: var(--accent-soft);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-paper: var(--paper);
+  --color-white: var(--white);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-line: var(--line);
+  --color-amber: var(--amber);
+  --color-amber-deep: var(--amber-deep);
+  --color-term: var(--term);
+  --color-term-line: var(--term-line);
+  --font-display: "Bricolage Grotesque Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Hanken Grotesk Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+/* Blueprint grid used once, behind the hero */
+.blueprint {
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(ellipse 70% 80% at 70% 40%, black 30%, transparent 75%);
+}
+
+:focus-visible {
+  outline: 2px solid var(--amber-deep);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+.caret {
+  animation: blink 1s steps(1) infinite;
 }

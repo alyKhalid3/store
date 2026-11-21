@@ -1,50 +1,80 @@
 import type { Metadata } from "next";
-import { GeistSans } from "geist/font/sans";
-import { GeistMono } from "geist/font/mono";
 import Link from "next/link";
+import "@fontsource-variable/bricolage-grotesque/opsz.css";
+import "@fontsource-variable/hanken-grotesk";
+import "@fontsource-variable/jetbrains-mono";
 import "./globals.css";
 import { site } from "@/lib/site";
 
-
 export const metadata: Metadata = {
-  title: { default: site.name, template: `%s · ${site.name}` },
+  title: { default: `${site.name}: ${site.tagline}`, template: `%s | ${site.name}` },
   description: site.description,
 };
 
+function Mark() {
+  // A skill file folded like a tool tag
+  return (
+    <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden>
+      <rect x="1" y="1" width="24" height="24" rx="6" fill="var(--ink)" />
+      <path d="M8 9h10M8 13h7M8 17h4" stroke="var(--amber)" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col">
-        <header className="border-b border-border">
-          <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-            <Link href="/" className="flex items-center gap-2 whitespace-nowrap font-semibold tracking-tight">
-              <span className="grid h-7 w-7 place-items-center rounded-md bg-accent text-sm font-bold text-black">
-                {site.name[0]}
-              </span>
+    <html lang="en" className="h-full antialiased">
+      <body className="flex min-h-full flex-col">
+        <header className="sticky top-0 z-40 border-b border-line/70 bg-paper/85 backdrop-blur">
+          <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3.5">
+            <Link href="/" className="flex items-center gap-2.5 whitespace-nowrap font-display text-lg font-semibold tracking-tight">
+              <Mark />
               {site.name}
             </Link>
-            <div className="flex items-center gap-5 whitespace-nowrap text-sm text-muted">
-              <Link href="/#products" className="hover:text-foreground">Products</Link>
-              <Link href="/#how" className="hidden hover:text-foreground sm:inline">How it works</Link>
-              <Link href="/#faq" className="hover:text-foreground">FAQ</Link>
+            <div className="flex items-center gap-6 whitespace-nowrap text-[15px] text-ink-soft">
+              <Link href="/#products" className="hover:text-ink">Products</Link>
+              <Link href="/#faq" className="hidden hover:text-ink sm:inline">Questions</Link>
+              <Link
+                href="/#bundle"
+                className="rounded-lg border border-ink/15 bg-white px-3.5 py-1.5 font-medium text-ink hover:border-ink/40"
+              >
+                Get the kit
+              </Link>
             </div>
           </nav>
         </header>
 
         <main className="flex-1">{children}</main>
 
-        <footer className="border-t border-border">
-          <div className="mx-auto flex max-w-6xl flex-col gap-4 px-6 py-8 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
-            <p>© 2026 {site.name} · by {site.author}</p>
-            <div className="flex gap-5">
-              <Link href="/terms" className="hover:text-foreground">Terms</Link>
-              <Link href="/refund" className="hover:text-foreground">Refund policy</Link>
-              <a href={`mailto:${site.contactEmail}`} className="hover:text-foreground">Contact</a>
+        <footer className="border-t border-line bg-white">
+          <div className="mx-auto grid max-w-6xl gap-8 px-6 py-12 sm:grid-cols-[1.5fr_1fr_1fr]">
+            <div>
+              <Link href="/" className="flex items-center gap-2.5 font-display text-lg font-semibold">
+                <Mark />
+                {site.name}
+              </Link>
+              <p className="mt-3 max-w-sm text-sm text-ink-soft">
+                Payments are handled by Polar, our merchant of record. Independent store, not affiliated with Anthropic.
+              </p>
+            </div>
+            <div className="text-sm">
+              <p className="font-semibold">Store</p>
+              <ul className="mt-3 space-y-2 text-ink-soft">
+                <li><Link href="/#products" className="hover:text-ink">Products</Link></li>
+                <li><Link href="/#bundle" className="hover:text-ink">Complete kit</Link></li>
+                <li><Link href="/#faq" className="hover:text-ink">Questions</Link></li>
+              </ul>
+            </div>
+            <div className="text-sm">
+              <p className="font-semibold">Help</p>
+              <ul className="mt-3 space-y-2 text-ink-soft">
+                <li><a href={`mailto:${site.contactEmail}`} className="hover:text-ink">{site.contactEmail}</a></li>
+                <li><Link href="/refund" className="hover:text-ink">Refund policy</Link></li>
+                <li><Link href="/terms" className="hover:text-ink">Terms</Link></li>
+              </ul>
             </div>
           </div>
-          <p className="mx-auto max-w-6xl px-6 pb-8 text-xs text-muted/70">
-            Payments are processed by Polar, our merchant of record. Not affiliated with Anthropic.
-          </p>
+          <p className="mx-auto max-w-6xl px-6 pb-8 text-xs text-ink-soft">© 2026 {site.author}</p>
         </footer>
       </body>
     </html>
